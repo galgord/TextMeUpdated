@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Firebase
 class MenuViewController: UIViewController {
 
     @IBOutlet weak var menuBtn: UIButton!
@@ -17,6 +17,7 @@ class MenuViewController: UIViewController {
     @IBOutlet weak var profileBtn: UIButton!
     
     @IBOutlet weak var settingsBtn: UIButton!
+    @IBOutlet weak var UserNickname: UILabel!
     
     
     let settingsLauncher = settingsHelper()
@@ -25,7 +26,7 @@ class MenuViewController: UIViewController {
         super.viewDidLoad()
         
         menuBtn.setImage(UIImage(named: "icons8-menu_2"), for: .normal)
-        
+        loadLabel()
         //settingsView.backgroundColor = UIColor(white: 0.95, alpha: 1.0)
         //settingsView.layer.cornerRadius = 2.5
         
@@ -41,7 +42,16 @@ class MenuViewController: UIViewController {
     }
   
  
-    
+    func loadLabel(){
+        let uid = Auth.auth().currentUser?.uid
+        Database.database().reference().child("Users").child(uid ?? "").observe(.value, with:{
+            (snap) in
+            if let dict = snap.value as? [String:AnyObject]{
+                self.UserNickname.text = dict["displayName"] as? String
+                
+            }})
+        print("success")
+    }
     
     
     
