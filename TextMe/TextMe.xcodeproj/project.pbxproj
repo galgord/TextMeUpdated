@@ -13,7 +13,6 @@
 		561EE7B4226B49F3008023C8 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561EE7B2226B49F3008023C8 /* MessageCell.swift */; };
 		561EE7B5226B49F3008023C8 /* MessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 561EE7B3226B49F3008023C8 /* MessageCell.xib */; };
 		561EE7B8226B5548008023C8 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561EE7B7226B5548008023C8 /* Message.swift */; };
-		56258A42226E50EC00CDB60A /* ContactsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56258A41226E50EC00CDB60A /* ContactsTableViewController.swift */; };
 		564D978B2269E37200C1A8DA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 564D97892269E37200C1A8DA /* Main.storyboard */; };
 		564D97902269E37400C1A8DA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 564D978E2269E37400C1A8DA /* LaunchScreen.storyboard */; };
 		A128D027226CFACF00E2D4A9 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128D026226CFACF00E2D4A9 /* MenuViewController.swift */; };
@@ -36,7 +35,6 @@
 		561EE7B2226B49F3008023C8 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		561EE7B3226B49F3008023C8 /* MessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageCell.xib; sourceTree = "<group>"; };
 		561EE7B7226B5548008023C8 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
-		56258A41226E50EC00CDB60A /* ContactsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsTableViewController.swift; sourceTree = "<group>"; };
 		564D97822269E37200C1A8DA /* TextMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TextMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		564D978A2269E37200C1A8DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		564D978F2269E37400C1A8DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -155,7 +153,6 @@
 				A1CE1FD2226B375800226A24 /* RegisterViewController.swift */,
 				A1D0016A226A85CA0099740A /* ViewController 01-37-28-491.swift */,
 				A128D026226CFACF00E2D4A9 /* MenuViewController.swift */,
-				56258A41226E50EC00CDB60A /* ContactsTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -321,7 +318,6 @@
 				A139646C226E14C9003E1B4C /* settingsHelper.swift in Sources */,
 				A1D00167226A859E0099740A /* AppDelegate.swift in Sources */,
 				561EE7B4226B49F3008023C8 /* MessageCell.swift in Sources */,
-				56258A42226E50EC00CDB60A /* ContactsTableViewController.swift in Sources */,
 				A139646F226E2024003E1B4C /* settingsCell.swift in Sources */,
 				561EE7B8226B5548008023C8 /* Message.swift in Sources */,
 				561EE7B0226B471A008023C8 /* ChatViewController.swift in Sources */,
