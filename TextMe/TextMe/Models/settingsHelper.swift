@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 
 class settingsHelper : NSObject, UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
@@ -28,6 +29,9 @@ class settingsHelper : NSObject, UICollectionViewDataSource,UICollectionViewDele
                 Setting(name: "Logout",imageName: "icons8-logout_rounded_up_filled")]
     }()
     
+    var menuViewController: MenuViewController?
+    
+    // Open Menu
     func handleBackgroundBlur(){
         
         if let window = UIApplication.shared.keyWindow {
@@ -59,6 +63,7 @@ class settingsHelper : NSObject, UICollectionViewDataSource,UICollectionViewDele
         }
     }
     
+    // Dissmising View
     
     @objc func handleDissmissBlur(){
         UIView.animate(withDuration: 0.5) {
@@ -69,6 +74,8 @@ class settingsHelper : NSObject, UICollectionViewDataSource,UICollectionViewDele
             }
         }
     }
+    
+      // Some Menu Settings Funcs
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return settings.count
@@ -84,8 +91,6 @@ class settingsHelper : NSObject, UICollectionViewDataSource,UICollectionViewDele
             return cell
         }
     
-    
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: cellHeight)
     }
@@ -96,17 +101,25 @@ class settingsHelper : NSObject, UICollectionViewDataSource,UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        
-        
-        
-        
-        
-    }
-
+        //Fading out Menu
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            
+            self.blackView.alpha = 0 // Fading Transperny View
+            
+            if let window = UIApplication.shared.keyWindow { // Fading Menu
+                self.collectionView.frame = CGRect(x: 0, y: window.frame.height, width: self.collectionView.frame.width, height: self.collectionView.frame.height)
+            }
+            
+        }) { (completed: Bool) in
+            // Animation completed moving to setting
+            self.menuViewController?.moveToSettings(name: self.settings[indexPath.row].name)
+        }
+}
     
     override init() {
         super.init()
         
+        // Registering Collection View
         collectionView.dataSource = self
         collectionView.delegate = self
         
@@ -115,4 +128,4 @@ class settingsHelper : NSObject, UICollectionViewDataSource,UICollectionViewDele
     
     
     
-}
+ }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class MenuViewController: UIViewController {
 
@@ -19,27 +20,47 @@ class MenuViewController: UIViewController {
     @IBOutlet weak var settingsBtn: UIButton!
     
     
-    let settingsLauncher = settingsHelper()
+    // Used for Settings
+    
+    lazy var settingsLauncher : settingsHelper = {
+        let launcher = settingsHelper()
+        launcher.menuViewController = self
+        return launcher
+    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         menuBtn.setImage(UIImage(named: "icons8-menu_2"), for: .normal)
         
-        //settingsView.backgroundColor = UIColor(white: 0.95, alpha: 1.0)
-        //settingsView.layer.cornerRadius = 2.5
-        
-        
     }
     
+    // on Menu Click open
     @IBAction func onMenuCllicked(_ sender: UIButton) {
-        openSettings()
-    }
-    
-    func openSettings(){
         settingsLauncher.handleBackgroundBlur()
     }
-  
+    
+
+    // Method handling navigation on Menu Item Click
+    func moveToSettings(name: String){
+        
+        if name == "Logout" {// Logout Clicked
+            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc : UIViewController = storyboard.instantiateViewController(withIdentifier: "login")
+            self.show(vc, sender: self)
+        }
+        
+        if name == "Settings" {// Settings Clicked
+            let storyboard : UIStoryboard = UIStoryboard(name: "Chat", bundle: nil)
+            let vc : UIViewController = storyboard.instantiateViewController(withIdentifier: "main")
+            self.show(vc, sender: self)
+        }
+        
+        if name == "Profile" {
+            // Profile Clicked
+        }
+    }
  
     
     

@@ -117,6 +117,7 @@
 		564D97842269E37200C1A8DA /* TextMe */ = {
 			isa = PBXGroup;
 			children = (
+				A139646D226E2013003E1B4C /* Cells */,
 				A1CE1FD5226B759A00226A24 /* Models */,
 				561EE7AC226B46DF008023C8 /* Chat */,
 				A1D00178226B20940099740A /* TextMe.entitlements */,
@@ -160,7 +161,6 @@
 		A1CE1FD5226B759A00226A24 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				A139646D226E2013003E1B4C /* Cells */,
 				A1CE1FD6226B75A600226A24 /* User.swift */,
 				A139646B226E14C9003E1B4C /* settingsHelper.swift */,
 			);
