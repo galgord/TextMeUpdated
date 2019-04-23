@@ -18,16 +18,24 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var messageTableView: UITableView!
     var messageArray: [Message] = []
     
+    @IBOutlet weak var contactNameLabel: UILabel!
+    @IBOutlet weak var backBtn: UIButton!
+    
     @IBOutlet weak var msgField: UITextField!
     
+    var contact : User = User()
+    
+    var chatId : String = ""
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
-        // Setting Btn Img
+        // Setting UI
         let sendImage = UIImage(named: "icons8-sent")
         btnSend.setImage(sendImage, for: .normal)
+        
+        contactNameLabel.text = contact.displayName
         
         // Setting Placeholder color
         msgField.attributedPlaceholder = NSAttributedString(string:"Type something", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
@@ -42,10 +50,11 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         retriveMessagesFromDatabase()
         messageTableView.separatorStyle = .none
         
+        messageTableView.backgroundColor = UIColor(white: 0.9, alpha: 1)
         
         //Register Nib
         messageTableView.register(UINib(nibName: "MessageCell", bundle: nil), forCellReuseIdentifier: "messageCell")
-        messageTableView.backgroundColor = UIColor(white: 0.95, alpha: 1)
+        
     }
     
     //MARK: - setup TableView
@@ -101,9 +110,17 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         messageText.endEditing(true)
         messageText.isEnabled = false
         btnSend.isEnabled = false
+    
+        
+        // Setting OneToOne Chat ID
+        if(contact.id < (Auth.auth().currentUser?.uid)!){
+            chatId = contact.id+(Auth.auth().currentUser?.uid)!
+        } else {
+            chatId = (Auth.auth().currentUser?.uid)! + contact.id
+        }
         
         //MARK - Saving to the Database
-        let messageDB = Database.database().reference().child("Messages")
+        let messageDB = Database.database().reference().child("Chats").child(chatId)
         let messageDict = ["Sender" : Auth.auth().currentUser?.email,
                           "MessageBody" : messageText.text!]
         messageDB.childByAutoId().setValue(messageDict) {
@@ -121,21 +138,40 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
             //MARK: - Retrive From DataBase
     func retriveMessagesFromDatabase(){
-        let messageDB = Database.database().reference().child("Messages")
+    
+        // Getting id of OneToOne Chat ID
+        if(contact.id < (Auth.auth().currentUser?.uid)!){
+            chatId = contact.id+(Auth.auth().currentUser?.uid)!
+        } else {
+            chatId = (Auth.auth().currentUser?.uid)! + contact.id
+        }
+        
+        let messageDB = Database.database().reference().child("Chats").child(chatId)
         messageDB.observe(.childAdded, with: { (snap) in
             let snapValue = snap.value as! Dictionary<String,String>
             let text = snapValue["MessageBody"]!
             let sender = snapValue["Sender"]!
+            
+            
 
             // linking the message
             var message = Message()
             message.messageBody = text
             message.sender = sender
             
+            // Checking for User massages
+            if(message.sender == self.contact.Email || message.sender == Auth.auth().currentUser?.email) {
+            
             self.messageArray.append(message)
             self.messageTableView.reloadData()
+            }
         })
-}
+    }
+    
+    @IBAction func onBackClicked(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
+    
 }
 
 

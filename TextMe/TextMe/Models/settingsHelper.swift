@@ -13,6 +13,8 @@ class settingsHelper : NSObject, UICollectionViewDataSource,UICollectionViewDele
     
     let blackView = UIView()
     
+    var menuVC = MenuViewController()
+    
     
     let collectionView : UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -95,11 +97,6 @@ class settingsHelper : NSObject, UICollectionViewDataSource,UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        
-        
-        
-        
         
     }
     

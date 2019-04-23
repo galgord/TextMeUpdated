@@ -24,8 +24,8 @@ class MessageCell: UITableViewCell {
     var isIncoming : Bool! {
         didSet{
             // Chat Per Sequence
-            chatBackground.backgroundColor = isIncoming ? .white : UIColor.primaryDarkColor
-            messageLabel.textColor = isIncoming ? .black : .white
+            chatBackground.backgroundColor = isIncoming ? .darkGray : UIColor.primaryDarkColor
+            messageLabel.textColor = isIncoming ? .white : .white
         
             // Chat Allignment
             if isIncoming {
