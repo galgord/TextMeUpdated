@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import Firebase
 
 struct User {
     var id = ""
@@ -18,4 +18,5 @@ struct User {
     
     // to Save IDS of Users Friends
     var friends : [String] = []
+
 }

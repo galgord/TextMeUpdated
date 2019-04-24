@@ -44,7 +44,7 @@
 		A139646B226E14C9003E1B4C /* settingsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = settingsHelper.swift; sourceTree = "<group>"; };
 		A139646E226E2024003E1B4C /* settingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = settingsCell.swift; sourceTree = "<group>"; };
 		A1CE1FD2226B375800226A24 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
-		A1CE1FD6226B75A600226A24 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		A1CE1FD6226B75A600226A24 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		A1D0015E226A859E0099740A /* Base */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Base; path = Base.lproj/Assets.xcassets; sourceTree = "<group>"; };
 		A1D00162226A859E0099740A /* Base */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Base; path = Base.lproj/AppDelegate.swift; sourceTree = "<group>"; };
 		A1D0016A226A85CA0099740A /* ViewController 01-37-28-491.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewController 01-37-28-491.swift"; sourceTree = "<group>"; };
