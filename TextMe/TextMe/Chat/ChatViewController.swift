@@ -50,7 +50,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         retriveMessagesFromDatabase()
         messageTableView.separatorStyle = .none
         
-        messageTableView.backgroundColor = UIColor(white: 0.9, alpha: 1)
+        messageTableView.backgroundColor = UIColor(white: 0.95, alpha: 1)
         
         //Register Nib
         messageTableView.register(UINib(nibName: "MessageCell", bundle: nil), forCellReuseIdentifier: "messageCell")
@@ -88,23 +88,11 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
   
     
-    //MARK: - Text Field Effects
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        UIView.animate(withDuration: 0.5){
-            self.chatBoxHeight.constant = 308
-            self.view.layoutIfNeeded()
-        }
-    }
+
     @IBAction func tapToClose(_ sender: Any) {
         messageText.endEditing(true)
     }
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        UIView.animate(withDuration: 0.5){
-            self.chatBoxHeight.constant = 50
-            self.view.layoutIfNeeded()
-        }
-    }
+
     @IBAction func sendToDataBase(_ sender: Any) {
         //UI Fix
         messageText.endEditing(true)

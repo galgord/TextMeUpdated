@@ -71,7 +71,6 @@
 			children = (
 				561EE7B6226B553A008023C8 /* Model */,
 				561EE7B1226B49C4008023C8 /* Cell */,
-				561EE7AD226B46F5008023C8 /* Chat.storyboard */,
 				561EE7AF226B471A008023C8 /* ChatViewController.swift */,
 			);
 			path = Chat;
@@ -122,6 +121,7 @@
 				A1D00178226B20940099740A /* TextMe.entitlements */,
 				A1D00161226A859E0099740A /* AppDelegate.swift */,
 				A1D0015D226A859E0099740A /* Assets.xcassets */,
+				561EE7AD226B46F5008023C8 /* Chat.storyboard */,
 				564D97892269E37200C1A8DA /* Main.storyboard */,
 				A1CE1FD4226B377300226A24 /* Controllers */,
 				564D978E2269E37400C1A8DA /* LaunchScreen.storyboard */,

@@ -11,24 +11,42 @@ import UIKit
 
 class settingsHelper : NSObject, UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
     
-    let blackView = UIView()
+    // Vars
     
-    var menuVC = MenuViewController()
+    let blackView = UIView() // TransperncyView
     
+    var menuVC = MenuViewController() // PreviousViewController
     
+    // Collection View of Settings
     let collectionView : UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return cv
     }()
+    // Cell of settings height
+    let cellHeight: CGFloat = 64
     
-    let cellHeight: CGFloat = 50
-    
+    // Array of Settings
     var settings: [Setting] = {
         return [Setting(name: "Settings", imageName: "icons8-settings_filled-1"),
                 Setting(name: "Profile",imageName: "icons8-user_filled"),
                 Setting(name: "Logout",imageName: "icons8-logout_rounded_up_filled")]
     }()
+    
+    //Init
+    
+    override init() {
+        super.init()
+        // Registering Collection View
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        
+        collectionView.register(SettingsCell.self, forCellWithReuseIdentifier: "settingsCell")
+    }
+    
+    
+    
+    // Open Settings
     
     func handleBackgroundBlur(){
         
@@ -61,8 +79,8 @@ class settingsHelper : NSObject, UICollectionViewDataSource,UICollectionViewDele
         }
     }
     
-    
-    @objc func handleDissmissBlur(){
+    // Dissmising Settings
+     @objc func handleDissmissBlur(){
         UIView.animate(withDuration: 0.5) {
             self.blackView.alpha = 0
             
@@ -72,11 +90,17 @@ class settingsHelper : NSObject, UICollectionViewDataSource,UICollectionViewDele
         }
     }
     
+    
+    // *********************************************
+    // --------- Collection View Methods -----------
+    // *********************************************
+    
+    //Number of items
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return settings.count
     }
     
-    
+    // Binding Cell
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "settingsCell", for: indexPath) as! SettingsCell
         
@@ -87,29 +111,21 @@ class settingsHelper : NSObject, UICollectionViewDataSource,UICollectionViewDele
     }
     
     
-    
+    // Sizing Cell
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: cellHeight)
     }
     
+    // Reduce LineSpacing
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
     
+    // On Settings Clicked
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        let setting = settings[indexPath.row]
+        menuVC.moveToSettings(settingName: setting.name)
     }
-    
-    
-    override init() {
-        super.init()
-        
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        
-        collectionView.register(SettingsCell.self, forCellWithReuseIdentifier: "settingsCell")
-    }
-    
     
     
 }
