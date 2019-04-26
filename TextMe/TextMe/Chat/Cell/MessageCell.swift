@@ -18,16 +18,17 @@ class MessageCell: UITableViewCell {
     
     
     let messageLabel = UILabel()
-    let senderUserName = UILabel()
+    let senderUserName = UILabel() // -- Used for Name
     let chatBackground = UIView()
     
+    // Statments for Incoming and Outcoming
     var isIncoming : Bool! {
         didSet{
-            // Chat Per Sequence
+            // Chat Sequence for InComing and OutComing
             chatBackground.backgroundColor = isIncoming ? .white : UIColor.primaryDarkColor
             messageLabel.textColor = isIncoming ? .black : .white
         
-            // Chat Allignment
+            // Chat Allignment for InComing and OutComing
             if isIncoming {
                 leadingConst.isActive = true
                 trailConst.isActive = false
@@ -44,11 +45,8 @@ class MessageCell: UITableViewCell {
         }
     }
 
-    
+    // Init
     override func awakeFromNib() {
-        
-        
-        
                 backgroundColor = .clear
         
                 addSubview(senderUserName)
@@ -60,9 +58,7 @@ class MessageCell: UITableViewCell {
         
                 // Adding chat Msg
                 addSubview(messageLabel)
-        
-        
-        
+ 
                 messageLabel.translatesAutoresizingMaskIntoConstraints = false
                 messageLabel.numberOfLines = 0
         
