@@ -18,25 +18,25 @@ UITableViewDataSource, UISearchBarDelegate{
     @IBOutlet weak var contactsTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var usersArray = [User]()
-    var filterdUsers = [User]()
-    var friends = [User]()
+    var usersArray = [User]() // All Users Array
+    var filterdUsers = [User]() // Filterd for Search
+    var friends = [User]() // Friends Array
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Init Search
         self.searchBar.delegate = self
         self.searchBar.isHidden = true
         self.searchBar.barTintColor = UIColor.primaryDarkColor
         self.searchBar.barStyle = .blackOpaque
         
+        // Registring Contacts and Bring Users from DB
         contactsTableView.register(userCell.self, forCellReuseIdentifier: "cell")
         fetchUser()
-        
-
-        // Do any additional setup after loading the view.
     }
     
+    // on Back Clicked
     @IBAction func onBackClicked(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -60,48 +60,53 @@ UITableViewDataSource, UISearchBarDelegate{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = (contactsTableView.dequeueReusableCell(withIdentifier: "cell",for: indexPath)) as! userCell
         
+        // Giving Add Friend Button Constrains
         cell.cellButton.translatesAutoresizingMaskIntoConstraints = false
         let constraints = [cell.cellButton.topAnchor.constraint(equalTo: cell.topAnchor,constant: 16),
                            cell.cellButton.bottomAnchor.constraint(equalTo: cell.bottomAnchor,constant: -16),
                            cell.cellButton.trailingAnchor.constraint(equalTo: cell.trailingAnchor,constant: -16)]
         NSLayoutConstraint.activate(constraints)
         
+        // Giving add Friend Button his On Click Function
         cell.cellButton.addTarget(cell, action: #selector(cell.onAddClicked(_:)), for: .touchUpInside)
-        
-        
+
         var user = User()
         
+        // Check if Searching User
         if searchBar.text != "" {
             user = filterdUsers[indexPath.row]
         } else {
             user = usersArray[indexPath.row]
         }
+        
+        // Attaching Cell his user and delegate
         cell.user = user
         cell.delegate = self
         
+        // Binding UI
         cell.textLabel?.text = user.displayName
         cell.detailTextLabel?.text = user.Email
         
         // Check if User in Friends Already
         for id in friends {
             if user.id == id.id {
-                // Disable add friend
+                // Disable Add friend Button
                 cell.cellButton.isEnabled = false
                 cell.cellButton.alpha = 0
             }
         }
-        
         return cell
     }
     
-    // User Cell
+    // ***************************
+    // --------- User Cell -------
+    // ***************************
     
      class userCell : UITableViewCell {
         
         @IBOutlet var cellButton: UIButton!
   
         var user = User()
-        
         var delegate : cellAddDelegate?
         
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -128,8 +133,8 @@ UITableViewDataSource, UISearchBarDelegate{
             sender.setImage(UIImage(named: "icons8-checkmark"), for: .normal)
         }) { (finished) in
             if finished {
-                DispatchQueue.asyncAfter(deadline:.now() + 1.0,execute: {
-                    UIView.animate(withDuration: 1.5, animations: {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
+                    UIView.animate(withDuration: 0.5, animations: {
                         sender.alpha = 0
                     })
                 })
@@ -140,25 +145,7 @@ UITableViewDataSource, UISearchBarDelegate{
         required init?(coder aDecoder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
-        
     }
-    
-    func fetchUser(){
-        Database.database().reference().child("Users").observe(.childAdded) { (DataSnapshot) in
-            if let dict = DataSnapshot.value as? [String:AnyObject]{
-                var user = User()
-                user.displayName = dict["displayName"] as! String
-                user.Email = dict["email"] as! String
-                user.id = dict["id"] as! String
-                self.usersArray.append(user)
-                self.contactsTableView.reloadData()
-            }
-            
-        }
-    }
-    
-    
-    
     // *************************************
     // --------------- Searchbar -----------
     // *************************************
@@ -219,9 +206,27 @@ protocol cellAddDelegate {
     func addClicked(user: User)
 }
 
-// TODO: MAKE THIS SEND INVITE TO USERS
-
 extension addFriendsViewController : cellAddDelegate {
+    
+    
+    // ****************************************
+    // --------- Database Methods -------
+    // ****************************************
+    
+    func fetchUser(){
+        Database.database().reference().child("Users").observe(.childAdded) { (DataSnapshot) in
+            if let dict = DataSnapshot.value as? [String:AnyObject]{
+                var user = User()
+                user.displayName = dict["displayName"] as! String
+                user.Email = dict["email"] as! String
+                user.id = dict["id"] as! String
+                self.usersArray.append(user)
+                self.contactsTableView.reloadData()
+            }
+            
+        }
+    }
+    
     func addClicked(user: User) {
         let userId = Auth.auth().currentUser?.uid
         let dbRef = Database.database().reference().child("Users").child(userId!)
@@ -230,13 +235,7 @@ extension addFriendsViewController : cellAddDelegate {
         dbRef.child("Friends").childByAutoId().setValue(userDict) { (error, dbRef) in
             if(error != nil){
                 print(error)
-            } else {
-                print("user added")
             }
         }
-        
-//        let userDict = ["displayName": selfUser.displayName,
-//                        "email": selfUser.Email,"id": selfUser.id]
-//
     }
 }
