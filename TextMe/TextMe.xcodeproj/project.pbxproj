@@ -15,6 +15,7 @@
 		561EE7B8226B5548008023C8 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561EE7B7226B5548008023C8 /* Message.swift */; };
 		564D978B2269E37200C1A8DA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 564D97892269E37200C1A8DA /* Main.storyboard */; };
 		564D97902269E37400C1A8DA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 564D978E2269E37400C1A8DA /* LaunchScreen.storyboard */; };
+		568BE8AF2272DECF00C323E4 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568BE8AE2272DECF00C323E4 /* ProfileViewController.swift */; };
 		A128D027226CFACF00E2D4A9 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128D026226CFACF00E2D4A9 /* MenuViewController.swift */; };
 		A139646C226E14C9003E1B4C /* settingsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A139646B226E14C9003E1B4C /* settingsHelper.swift */; };
 		A139646F226E2024003E1B4C /* settingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A139646E226E2024003E1B4C /* settingsCell.swift */; };
@@ -38,6 +39,7 @@
 		564D97822269E37200C1A8DA /* TextMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TextMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		564D978A2269E37200C1A8DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		564D978F2269E37400C1A8DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		568BE8AE2272DECF00C323E4 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		7D8E9E3EEC711833B7C07E1A /* Pods-TextMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TextMe.debug.xcconfig"; path = "Target Support Files/Pods-TextMe/Pods-TextMe.debug.xcconfig"; sourceTree = "<group>"; };
 		9EAD27C673ABBFC3A39D17E1 /* Pods_TextMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TextMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A128D026226CFACF00E2D4A9 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				A1CE1FD2226B375800226A24 /* RegisterViewController.swift */,
 				A1D0016A226A85CA0099740A /* ViewController 01-37-28-491.swift */,
 				A128D026226CFACF00E2D4A9 /* MenuViewController.swift */,
+				568BE8AE2272DECF00C323E4 /* ProfileViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -320,6 +323,7 @@
 				561EE7B4226B49F3008023C8 /* MessageCell.swift in Sources */,
 				A139646F226E2024003E1B4C /* settingsCell.swift in Sources */,
 				561EE7B8226B5548008023C8 /* Message.swift in Sources */,
+				568BE8AF2272DECF00C323E4 /* ProfileViewController.swift in Sources */,
 				561EE7B0226B471A008023C8 /* ChatViewController.swift in Sources */,
 				A1D0016B226A85CA0099740A /* ViewController 01-37-28-491.swift in Sources */,
 				A1CE1FD7226B75A600226A24 /* User.swift in Sources */,

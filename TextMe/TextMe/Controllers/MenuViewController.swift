@@ -93,8 +93,13 @@ class MenuViewController: UIViewController, UITableViewDelegate , UITableViewDat
             let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let vc : UIViewController =  storyboard.instantiateViewController(withIdentifier: "Login")
                 self.show(vc, sender: self)
-    }
+        }
+//        } else if(settingName == "Profile"){
+//            performSegue(withIdentifier: "ProfileViewContriller", sender: self)
+//        }
 }
+    
+
     
     func fetchUser(){
         Database.database().reference().child("Users").observe(.childAdded) { (DataSnapshot) in

@@ -55,7 +55,11 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         //Register Nib
         messageTableView.register(UINib(nibName: "MessageCell", bundle: nil), forCellReuseIdentifier: "messageCell")
         
+        //adding Delete Chat Message
+        messageTableView.allowsSelectionDuringEditing = true
+        
     }
+    
     
     //MARK: - setup TableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -85,9 +89,23 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
     
-  
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        let uid = Auth.auth().currentUser?.uid
+        Database.database().reference().child("Messages").child(uid!)
+                self.messageArray.remove(at: indexPath.row)
+                 self.messageTableView.deleteRows(at: [indexPath], with: .automatic)
+                print("did I get here?")
+//                 self.retriveMessagesFromDatabase()
+            }
+       
     
+    
+    
+
 
     @IBAction func tapToClose(_ sender: Any) {
         messageText.endEditing(true)
