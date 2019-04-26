@@ -16,6 +16,7 @@ struct User {
     
     
     
+    
     // to Save IDS of Users Friends
     var friends : [String] = []
 

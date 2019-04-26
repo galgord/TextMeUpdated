@@ -46,6 +46,7 @@ class MenuViewController: UIViewController, UITableViewDelegate , UITableViewDat
     
      var usersArray = [User]()
     var filterdUsers = [User]()
+    var friendsArr = [User]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,17 +55,12 @@ class MenuViewController: UIViewController, UITableViewDelegate , UITableViewDat
         UIBuild()
         self.searchBar.delegate = self
         
-        menuBtn.setImage(UIImage(named: "icons8-menu_2"), for: .normal)
-        menuBtn.tintColor = UIColor.white
-        
         // Registering Contacts
         ContactTableView.register(userCell.self, forCellReuseIdentifier: "cell")
         fetchUser()
     }
     
-     func dismissSearch(){
-    }
-    
+    // on Menu Clicked
     @IBAction func onMenuCllicked(_ sender: UIButton) {
         settingsLauncher.handleBackgroundBlur()
     }
@@ -93,58 +89,83 @@ class MenuViewController: UIViewController, UITableViewDelegate , UITableViewDat
             let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let vc : UIViewController =  storyboard.instantiateViewController(withIdentifier: "Login")
                 self.show(vc, sender: self)
-        }
-//        } else if(settingName == "Profile"){
-//            performSegue(withIdentifier: "ProfileViewContriller", sender: self)
-//        }
+    }
 }
     
-
+    func bringFriendsFromDatabase(){
+        var arr : [String] = []
+        let userId = Auth.auth().currentUser?.uid
+        let dbRef = Database.database().reference().child("Users").child(userId!).child("Friends")
+        dbRef.observe( .childAdded) { (snap) in
+            let snapValue = snap.value as! Dictionary<String,String>
+            let id = snapValue["id"]!
+            arr.append(id)
+        }
+    }
     
     func fetchUser(){
+        bringFriendsFromDatabase()
+            var user = User()
         Database.database().reference().child("Users").observe(.childAdded) { (DataSnapshot) in
             if let dict = DataSnapshot.value as? [String:AnyObject]{
-                var user = User()
+ 
                 user.displayName = dict["displayName"] as! String
                 user.Email = dict["email"] as! String
                 user.id = dict["id"] as! String
                 self.usersArray.append(user)
-                self.ContactTableView.reloadData()
+            self.ContactTableView.reloadData()
             }
-            
-        }
     }
-    
-    
+}
     // ****************************************
     // --------- Contacts Table Methods -------
     // ****************************************
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        if !searchBar.isHidden && searchBar.text != "" {
-            return filterdUsers.count
+        if  searchBar.text != "" {
+            return filterdUsers.count + 1
         }else{
-            return self.usersArray.count
+            return self.usersArray.count + 1
         }
             
         
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = ContactTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         var user = User()
-        if searchBar.text != "" {
-            
-            user = filterdUsers[indexPath.row]
-            
-        }else{
-            user = self.usersArray[indexPath.row]
+        if searchBar.text != "" { // Search not null
+            if indexPath.row < filterdUsers.count{ // Making user cells
+               
+                let cell = ContactTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+                user = filterdUsers[indexPath.row]
+                cell.detailTextLabel?.text = user.Email
+                cell.textLabel?.text = user.displayName
+                return cell
+            } else { // Adding Add Friends Cell
+                
+                let cell = ContactTableView.dequeueReusableCell(withIdentifier: "addCell", for: indexPath)
+                cell.textLabel?.text = "Add Friends"
+                cell.textLabel?.textColor = UIColor.primaryDarkColor
+                return cell
+            }
+        }else{ // Search null
+            if indexPath.row < usersArray.count{
+                let cell = ContactTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+                user = usersArray[indexPath.row]
+                cell.detailTextLabel?.text = user.Email
+                cell.textLabel?.text = user.displayName
+                return cell
+            } else {
+                // Adding Add Friends Cell
+                let cell = ContactTableView.dequeueReusableCell(withIdentifier: "addCell", for: indexPath)
+                cell.textLabel?.text = "Add Friends"
+                cell.textLabel?.baselineAdjustment = .alignCenters
+                cell.textLabel?.textColor = UIColor.primaryDarkColor
+                return cell
+            }
             
         }
-        cell.detailTextLabel?.text = user.Email
-        cell.textLabel?.text = user.displayName
-        return cell
     }
     
     
@@ -154,23 +175,40 @@ class MenuViewController: UIViewController, UITableViewDelegate , UITableViewDat
         // Deselcet Row
         tableView.deselectRow(at: indexPath, animated: true)
         
-        // Getting User Clicked
-        
         var user = User()
         
-        if searchBar.text != "" {
-            
-            user = filterdUsers[indexPath.row]
-        }else{
-            user = self.usersArray[indexPath.row]
+        if searchBar.text != "" { // Search not null
+            if indexPath.row < filterdUsers.count{
+                // User Clicked
+                user = usersArray[indexPath.row]
+                
+                // Passing User to Chat and Open Chat
+                let storyBoard = UIStoryboard(name: "Chat", bundle: nil)
+                let vc = storyBoard.instantiateViewController(withIdentifier: "main") as! ChatViewController
+                vc.contact = user
+                self.present(vc, animated: false, completion: nil)
+            } else { // Add Friends Clicked
+                // Moving to Add Friends View
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "addFriends")
+                self.present(vc!, animated: true, completion: nil)
+            }
+        }else{ // Search null Showing all Friends
+            if indexPath.row < usersArray.count{ // User Clicked
+                user = usersArray[indexPath.row]
+                
+                
+                // Passing User to Chat and Open Chat
+                let storyBoard = UIStoryboard(name: "Chat", bundle: nil)
+                let vc = storyBoard.instantiateViewController(withIdentifier: "main") as! ChatViewController
+                vc.contact = user
+                self.present(vc, animated: false, completion: nil)
+            } else { // Add Friends Clicked
+                // Moving to Add Friends View
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "addFriends")
+                self.present(vc!, animated: true, completion: nil)
+            }
             
         }
-        
-        // Passing User to Chat and Open Chat
-        let storyBoard = UIStoryboard(name: "Chat", bundle: nil)
-        let vc = storyBoard.instantiateViewController(withIdentifier: "main") as! ChatViewController
-        vc.contact = user
-        self.present(vc, animated: false, completion: nil)
     }
     
     // User Cell
@@ -193,8 +231,6 @@ class MenuViewController: UIViewController, UITableViewDelegate , UITableViewDat
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         filterUsers(searchText: searchBar.text!)
     }
-
-    
   
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -208,6 +244,7 @@ class MenuViewController: UIViewController, UITableViewDelegate , UITableViewDat
         }
         ContactTableView.reloadData()
     }
+    
     
     @IBAction func openSearchView(_ sender: UIButton) {
             makeSearchView()
