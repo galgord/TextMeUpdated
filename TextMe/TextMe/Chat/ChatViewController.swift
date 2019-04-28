@@ -9,11 +9,13 @@
 import UIKit
 import Firebase
 
-class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
+class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
     //MARK: - Outlets and Variables
     @IBOutlet weak var chatBoxHeight: NSLayoutConstraint!
     @IBOutlet weak var btnSend: UIButton!
+    @IBOutlet weak var btnUpload: UIButton!
+    
     @IBOutlet weak var messageText: UITextField!
     @IBOutlet weak var messageTableView: UITableView!
     var messageArray: [Message] = []
@@ -22,14 +24,22 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var backBtn: UIButton!
     
     @IBOutlet weak var msgField: UITextField!
-    
     var contact : User = User()
     
     var chatId : String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIBuild()
+        
+        // Setting UI
+        let sendImage = UIImage(named: "icons8-sent")
+        let uploadPicture = UIImage(named: "uploadBtn")
+        btnSend.setImage(sendImage, for: .normal)
+        btnUpload.setImage(uploadPicture, for: .normal)
+        contactNameLabel.text = contact.displayName
+        
+        // Setting Placeholder color
+        msgField.attributedPlaceholder = NSAttributedString(string:"Type something", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         
         //setting Protocols
         messageTableView.delegate = self
@@ -99,13 +109,26 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     // ****************************************
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        let uid = Auth.auth().currentUser?.uid
-        Database.database().reference().child("Messages").child(uid!)
-        self.messageArray.remove(at: indexPath.row)
-        self.messageTableView.deleteRows(at: [indexPath], with: .automatic)
-        print("did I get here?")
-        //                 self.retriveMessagesFromDatabase()
+        if(contact.id < (Auth.auth().currentUser?.uid)!){
+            chatId = contact.id+(Auth.auth().currentUser?.uid)!
+        } else {
+            chatId = (Auth.auth().currentUser?.uid)! + contact.id
+        }
+        Database.database().reference().child("Chats").child(chatId).removeValue { (error, ref) in
+            if error != nil {
+                print(error)
+            } else {
+                print(ref)
+                self.messageArray.remove(at: indexPath.row)
+                self.messageTableView.deleteRows(at: [indexPath], with: .automatic)
+            }
+            }
     }
+    
+    
+        
+
+
     
     
     @IBAction func tapToClose(_ sender: Any) {
@@ -177,6 +200,60 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBAction func onBackClicked(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
+    @IBAction func uploadImagetoChat(_ sender: UIButton) {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.allowsEditing = true
+        
+        present(imagePickerController, animated: true, completion: nil)
+
+    }
     
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        var selectedImageFromPicker : UIImage?
+        guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+            else { return }
+        selectedImageFromPicker = image
+        if let selectedImage = selectedImageFromPicker {
+            uploadToFirebaseStorageUsingImage(image: selectedImage)
+        }
+        
+        
+        }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func uploadToFirebaseStorageUsingImage(image : UIImage){
+    
+    let imageName = NSUUID().uuidString
+    let ref = Storage.storage().reference().child("messages_images").child(imageName)
+        if let uploadData = image.jpegData(compressionQuality: 0.2){
+            ref.putData(uploadData, metadata: nil) { (metadata, error) in
+                if error != nil {
+                    print(error)
+                    return
+                }
+                print(metadata)
+            }
+        }
+    }
 }
+
+
+
+extension UIColor {
+    
+    static let primaryDarkColor = UIColor(red: 38, green: 191, Blue: 191, a: 1)
+    
+    convenience init(red: Int,green: Int,Blue: Int, a: CGFloat = 1.0) {
+        self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0 , blue: CGFloat(Blue) / 255.0, alpha: a)
+    }
+    
+    
+    
+    }
+
+
 
