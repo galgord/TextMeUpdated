@@ -281,8 +281,8 @@
                                         <rect key="frame" x="8" y="10" width="109.5" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UG0-5v-tDg">
-                                        <rect key="frame" x="346" y="11" width="36" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UG0-5v-tDg">
+                                        <rect key="frame" x="370" y="8" width="36" height="37"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="36" id="cIM-g3-vJD"/>
                                         </constraints>
@@ -301,13 +301,30 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xc6-SJ-gcm">
+                                        <rect key="frame" x="326" y="11" width="36" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="MOQ-Kt-6sb"/>
+                                            <constraint firstAttribute="width" constant="36" id="Sz1-WS-288"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal">
+                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="uploadImagetoChat:" destination="vA3-0c-7QP" eventType="touchUpInside" id="UPG-YB-VNh"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.20000000000000001" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="xc6-SJ-gcm" secondAttribute="bottom" constant="12" id="13n-dn-3ut"/>
                                     <constraint firstAttribute="bottom" secondItem="UG0-5v-tDg" secondAttribute="bottom" constant="8" id="4IW-XO-TRK"/>
+                                    <constraint firstItem="xc6-SJ-gcm" firstAttribute="top" secondItem="SVH-gi-2sc" secondAttribute="top" constant="11" id="4qB-iu-b86"/>
                                     <constraint firstAttribute="trailing" secondItem="UG0-5v-tDg" secondAttribute="trailing" constant="8" id="82K-8D-zd8"/>
                                     <constraint firstAttribute="bottom" secondItem="cNI-mh-FkG" secondAttribute="bottom" constant="12" id="8Y9-hL-vui"/>
                                     <constraint firstItem="cNI-mh-FkG" firstAttribute="leading" secondItem="SVH-gi-2sc" secondAttribute="leading" constant="8" id="AvX-MD-1sC"/>
+                                    <constraint firstItem="UG0-5v-tDg" firstAttribute="leading" secondItem="xc6-SJ-gcm" secondAttribute="trailing" constant="8" id="OL1-Q2-vri"/>
                                     <constraint firstItem="UG0-5v-tDg" firstAttribute="top" secondItem="SVH-gi-2sc" secondAttribute="top" constant="8" id="OeC-Yo-eIx"/>
                                     <constraint firstAttribute="trailing" secondItem="cNI-mh-FkG" secondAttribute="trailing" constant="296.5" id="adg-GP-P01"/>
                                     <constraint firstItem="cNI-mh-FkG" firstAttribute="top" secondItem="SVH-gi-2sc" secondAttribute="top" constant="24" id="zPg-1I-kh2"/>
@@ -375,6 +392,7 @@
                     <connections>
                         <outlet property="backBtn" destination="oOQ-6s-soK" id="Bd6-En-KDg"/>
                         <outlet property="btnSend" destination="UG0-5v-tDg" id="4Og-8Z-nuG"/>
+                        <outlet property="btnUpload" destination="xc6-SJ-gcm" id="bbv-U4-fMC"/>
                         <outlet property="contactNameLabel" destination="uwt-ln-dRT" id="dxn-eN-V75"/>
                         <outlet property="messageTableView" destination="jib-pm-luU" id="4Yy-Kh-gEl"/>
                         <outlet property="messageText" destination="cNI-mh-FkG" id="zZk-Sp-3My"/>
@@ -388,7 +406,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-668" y="104"/>
+            <point key="canvasLocation" x="-668.11594202898561" y="103.79464285714285"/>
         </scene>
     </scenes>
     <resources>

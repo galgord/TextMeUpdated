@@ -10,5 +10,6 @@ target 'TextMe' do
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
   pod 'SVProgressHUD'
+  pod 'Firebase/Storage'
 
 end
