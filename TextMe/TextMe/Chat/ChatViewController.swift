@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FirebaseStorage
 
 class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
@@ -79,18 +80,13 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
    
         
         
-        // ****** TEMP COMMENT FOR UI BUILD
-       // cell.senderUserName.text = messageArray[indexPath.row].sender
-       // cell.userImage.image = UIImage(named: "demoUser")
+
         
         if cell.senderUserName.text == Auth.auth().currentUser?.email {
             //user Messages
-           // cell.userImage.backgroundColor = UIColor.green
             cell.isIncoming = false
-            // not user messages
-        } else {
+        } else { // not user messages
                 cell.isIncoming = true
-                //cell.userImage.backgroundColor = UIColor.purple
             }
  
         return cell
@@ -114,7 +110,8 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         } else {
             chatId = (Auth.auth().currentUser?.uid)! + contact.id
         }
-        Database.database().reference().child("Chats").child(chatId).removeValue { (error, ref) in
+    
+        Database.database().reference().child("Chats").child(chatId).child(self.messageArray[indexPath.row].mId).removeValue { (error, ref) in
             if error != nil {
                 print(error)
             } else {
@@ -150,10 +147,12 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         
         //MARK - Saving to the Database
-        let messageDB = Database.database().reference().child("Chats").child(chatId)
+        let key = Database.database().reference().child("Chats").child(chatId).childByAutoId().key
+        let messageDB = Database.database().reference().child("Chats").child(chatId).child(key!)
         let messageDict = ["Sender" : Auth.auth().currentUser?.email,
-                           "MessageBody" : messageText.text!]
-        messageDB.childByAutoId().setValue(messageDict) {
+                           "MessageBody" : messageText.text!,
+                           "mId" : key]
+        messageDB.setValue(messageDict) {
             (error,referance) in
             if error != nil{
                 print(error as Any)
@@ -181,12 +180,14 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
             let snapValue = snap.value as! Dictionary<String,String>
             let text = snapValue["MessageBody"]!
             let sender = snapValue["Sender"]!
+            let id = snapValue["mId"]!
             
             
             // linking the message
             var message = Message()
             message.messageBody = text
             message.sender = sender
+            message.mId = id
             
             // Checking for User massages
             if(message.sender == self.contact.Email || message.sender == Auth.auth().currentUser?.email) {
@@ -240,20 +241,6 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
 }
-
-
-
-extension UIColor {
-    
-    static let primaryDarkColor = UIColor(red: 38, green: 191, Blue: 191, a: 1)
-    
-    convenience init(red: Int,green: Int,Blue: Int, a: CGFloat = 1.0) {
-        self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0 , blue: CGFloat(Blue) / 255.0, alpha: a)
-    }
-    
-    
-    
-    }
 
 
 

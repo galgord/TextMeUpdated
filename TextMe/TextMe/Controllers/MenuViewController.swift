@@ -18,18 +18,18 @@ import Firebase
 
 
 class MenuViewController: UIViewController, UITableViewDelegate , UITableViewDataSource, UISearchBarDelegate {
-   
+    
     
     
     //  ****** Variables ******
     
-   
+    
     
     @IBOutlet weak var searchBar: UISearchBar!
     
     @IBOutlet weak var menuBtn: UIButton!
     
-     @IBOutlet var ContactTableView: UITableView!
+    @IBOutlet var ContactTableView: UITableView!
     @IBOutlet weak var toolbarView: UIView!
     
     @IBOutlet weak var nicknameLabel: UILabel!
@@ -44,7 +44,7 @@ class MenuViewController: UIViewController, UITableViewDelegate , UITableViewDat
         return launcher
     }()
     
-     var usersArray = [User]()
+    var usersArray = [User]()
     var filterdUsers = [User]()
     var friends : [String] = []
     
@@ -92,9 +92,9 @@ class MenuViewController: UIViewController, UITableViewDelegate , UITableViewDat
             
             let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let vc : UIViewController =  storyboard.instantiateViewController(withIdentifier: "Login")
-                self.show(vc, sender: self)
+            self.show(vc, sender: self)
+        }
     }
-}
     
     // **********************************
     // --------- Fetching Friends -------
@@ -107,9 +107,9 @@ class MenuViewController: UIViewController, UITableViewDelegate , UITableViewDat
         let dbRef = Database.database().reference().child("Users").child(userId!).child("Friends").observe(.childAdded){ (snap) in
             // Getting friend id from snap
             let snapValue = snap.value as! Dictionary<String,Any>
-                let id =  snapValue["uid"] as! String
-                    // Users Ref Filterd By the ID of Friend
-                            let ref = Database.database().reference().child("Users").child(id).observe(.value, with: { (UsersSnap) in
+            let id =  snapValue["uid"] as! String
+            // Users Ref Filterd By the ID of Friend
+            let ref = Database.database().reference().child("Users").child(id).observe(.value, with: { (UsersSnap) in
                 if let userDict = UsersSnap.value as? [String:AnyObject]{
                     //Making User from Snap
                     var user = User()
@@ -123,13 +123,13 @@ class MenuViewController: UIViewController, UITableViewDelegate , UITableViewDat
                 }
                 
             })
-            }
         }
-
+    }
+    
     // ****************************************
     // --------- Contacts Table Methods -------
     // ****************************************
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         if  searchBar.text != "" {
@@ -137,7 +137,7 @@ class MenuViewController: UIViewController, UITableViewDelegate , UITableViewDat
         }else{
             return self.usersArray.count + 1
         }
-            
+        
         
     }
     
@@ -145,7 +145,7 @@ class MenuViewController: UIViewController, UITableViewDelegate , UITableViewDat
         var user = User()
         if searchBar.text != "" { // Search not null
             if indexPath.row < filterdUsers.count{ // Making user cells
-               
+                
                 let cell = ContactTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
                 user = filterdUsers[indexPath.row]
                 cell.detailTextLabel?.text = user.Email
@@ -238,11 +238,11 @@ class MenuViewController: UIViewController, UITableViewDelegate , UITableViewDat
     // *************************************
     // --------------- Searchbar -----------
     // *************************************
-
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         filterUsers(searchText: searchBar.text!)
     }
-  
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -258,7 +258,7 @@ class MenuViewController: UIViewController, UITableViewDelegate , UITableViewDat
     
     
     @IBAction func openSearchView(_ sender: UIButton) {
-            makeSearchView()
+        makeSearchView()
     }
     
     @IBOutlet weak var searchHeight: NSLayoutConstraint!
@@ -273,7 +273,7 @@ class MenuViewController: UIViewController, UITableViewDelegate , UITableViewDat
             }, completion: { (status) in
                 self.searchBar.isHidden = true
                 
-                           })
+            })
         } else {
             self.searchHeight.constant = 64
             
@@ -281,11 +281,11 @@ class MenuViewController: UIViewController, UITableViewDelegate , UITableViewDat
                 self.view.layoutIfNeeded()
             }, completion: { (status) in
                 self.searchBar.isHidden = false
-                           })
+            })
         }
     }
 }
-        
+
 //             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
 //
 //                if !(self.searchBar.isHidden) {
@@ -303,21 +303,21 @@ class MenuViewController: UIViewController, UITableViewDelegate , UITableViewDat
 //                    self.ContactTableView.tableHeaderView = nil
 //                }
 //            }
-    
-    /*@IBAction func pickProfilePic(_ sender: Any) {
-     let pick = UIImagePickerController()
-     pick.delegate = self
-     present(pick, animated: true, completion: nil)
-     }
-     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-     guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
-     profilePicture.image = image
-     self.dismiss(animated: true, completion: nil)
-     }*/
+
+/*@IBAction func pickProfilePic(_ sender: Any) {
+ let pick = UIImagePickerController()
+ pick.delegate = self
+ present(pick, animated: true, completion: nil)
+ }
+ func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+ guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
+ profilePicture.image = image
+ self.dismiss(animated: true, completion: nil)
+ }*/
 
 
 
 
 
-    
-    
+
+

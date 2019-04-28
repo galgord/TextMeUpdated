@@ -177,6 +177,7 @@ UITableViewDataSource, UISearchBarDelegate{
     @IBOutlet weak var searchHeight: NSLayoutConstraint! // searchbar height to Animate
     
     // Animating Toggle Searchbar Method
+    
     func makeSearchView(){
         print(searchBar.isHidden)
         if !(searchBar.isHidden){

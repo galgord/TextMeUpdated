@@ -11,5 +11,5 @@ import Foundation
 struct Message {
     var sender : String = ""
     var messageBody : String = ""
-    
+    var mId = ""
 }
