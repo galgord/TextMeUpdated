@@ -29,7 +29,6 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var chatId : String = ""
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         
         // Setting UI
@@ -48,7 +47,6 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         messageText.delegate = self
     
         //On Load Funcs
-        // configureTableView()
         retriveMessagesFromDatabase()
         messageTableView.separatorStyle = .none
         
@@ -56,9 +54,21 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         //Register Nib
         messageTableView.register(UINib(nibName: "MessageCell", bundle: nil), forCellReuseIdentifier: "messageCell")
-    // Enables Tabele Delete Button
+    // Enables Table Delete Button
     messageTableView.allowsSelectionDuringEditing = true
         
+    }
+    
+    func UIBuild(){
+        
+        // Setting UI
+        let sendImage = UIImage(named: "icons8-sent")
+        btnSend.setImage(sendImage, for: .normal)
+        
+        contactNameLabel.text = contact.displayName
+        
+        // Setting Placeholder color
+        msgField.attributedPlaceholder = NSAttributedString(string:"Type something", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
     }
     
     //MARK: - setup TableView
@@ -66,6 +76,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let cell = tableView.dequeueReusableCell(withIdentifier: "messageCell", for: indexPath) as! MessageCell
        cell.messageLabel.text = messageArray[indexPath.row].messageBody
         cell.senderUserName.text = messageArray[indexPath.row].sender
+   
         
         
         // ****** TEMP COMMENT FOR UI BUILD
@@ -141,7 +152,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         //MARK - Saving to the Database
         let messageDB = Database.database().reference().child("Chats").child(chatId)
         let messageDict = ["Sender" : Auth.auth().currentUser?.email,
-                          "MessageBody" : messageText.text!]
+                           "MessageBody" : messageText.text!]
         messageDB.childByAutoId().setValue(messageDict) {
             (error,referance) in
             if error != nil{
@@ -172,7 +183,6 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
             let sender = snapValue["Sender"]!
             
             
-
             // linking the message
             var message = Message()
             message.messageBody = text

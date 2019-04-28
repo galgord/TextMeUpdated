@@ -21,7 +21,7 @@ class MenuViewController: UIViewController, UITableViewDelegate , UITableViewDat
    
     
     
-    // Vars
+    //  ****** Variables ******
     
    
     
@@ -46,7 +46,11 @@ class MenuViewController: UIViewController, UITableViewDelegate , UITableViewDat
     
      var usersArray = [User]()
     var filterdUsers = [User]()
-    var friendsArr = [User]()
+    var friends : [String] = []
+    
+    // **********************
+    // --------- INIT -------
+    // **********************
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,7 +61,7 @@ class MenuViewController: UIViewController, UITableViewDelegate , UITableViewDat
         
         // Registering Contacts
         ContactTableView.register(userCell.self, forCellReuseIdentifier: "cell")
-        fetchUser()
+        bringFriendsFromDatabase()
     }
     
     // on Menu Clicked
@@ -92,31 +96,36 @@ class MenuViewController: UIViewController, UITableViewDelegate , UITableViewDat
     }
 }
     
-    func bringFriendsFromDatabase(){
-        var arr : [String] = []
-        let userId = Auth.auth().currentUser?.uid
-        let dbRef = Database.database().reference().child("Users").child(userId!).child("Friends")
-        dbRef.observe( .childAdded) { (snap) in
-            let snapValue = snap.value as! Dictionary<String,String>
-            let id = snapValue["id"]!
-            arr.append(id)
-        }
-    }
+    // **********************************
+    // --------- Fetching Friends -------
+    // **********************************
     
-    func fetchUser(){
-        bringFriendsFromDatabase()
-            var user = User()
-        Database.database().reference().child("Users").observe(.childAdded) { (DataSnapshot) in
-            if let dict = DataSnapshot.value as? [String:AnyObject]{
- 
-                user.displayName = dict["displayName"] as! String
-                user.Email = dict["email"] as! String
-                user.id = dict["id"] as! String
-                self.usersArray.append(user)
-            self.ContactTableView.reloadData()
+    func bringFriendsFromDatabase(){
+        // Getting Self id
+        let userId = Auth.auth().currentUser?.uid
+        // Friends Ref
+        let dbRef = Database.database().reference().child("Users").child(userId!).child("Friends").observe(.childAdded){ (snap) in
+            // Getting friend id from snap
+            let snapValue = snap.value as! Dictionary<String,Any>
+                let id =  snapValue["uid"] as! String
+                    // Users Ref Filterd By the ID of Friend
+                            let ref = Database.database().reference().child("Users").child(id).observe(.value, with: { (UsersSnap) in
+                if let userDict = UsersSnap.value as? [String:AnyObject]{
+                    //Making User from Snap
+                    var user = User()
+                    user.displayName = userDict["displayName"] as! String
+                    user.Email = userDict["email"] as! String
+                    user.id = userDict["id"] as! String
+                    
+                    // Updating Array and Table
+                    self.usersArray.append(user)
+                    self.ContactTableView.reloadData()
+                }
+                
+            })
             }
-    }
-}
+        }
+
     // ****************************************
     // --------- Contacts Table Methods -------
     // ****************************************
@@ -189,8 +198,9 @@ class MenuViewController: UIViewController, UITableViewDelegate , UITableViewDat
                 self.present(vc, animated: false, completion: nil)
             } else { // Add Friends Clicked
                 // Moving to Add Friends View
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "addFriends")
-                self.present(vc!, animated: true, completion: nil)
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "addFriends") as! addFriendsViewController
+                vc.friends = self.usersArray
+                self.present(vc, animated: true, completion: nil)
             }
         }else{ // Search null Showing all Friends
             if indexPath.row < usersArray.count{ // User Clicked
@@ -204,8 +214,9 @@ class MenuViewController: UIViewController, UITableViewDelegate , UITableViewDat
                 self.present(vc, animated: false, completion: nil)
             } else { // Add Friends Clicked
                 // Moving to Add Friends View
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "addFriends")
-                self.present(vc!, animated: true, completion: nil)
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "addFriends") as! addFriendsViewController
+                vc.friends = self.usersArray
+                self.present(vc, animated: true, completion: nil)
             }
             
         }

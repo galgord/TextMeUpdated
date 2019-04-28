@@ -14,6 +14,7 @@
 		561EE7B8226B5548008023C8 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561EE7B7226B5548008023C8 /* Message.swift */; };
 		564D978B2269E37200C1A8DA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 564D97892269E37200C1A8DA /* Main.storyboard */; };
 		564D97902269E37400C1A8DA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 564D978E2269E37400C1A8DA /* LaunchScreen.storyboard */; };
+		A120664C22737B8600B4DB37 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A120664B22737B8600B4DB37 /* Colors.swift */; };
 		A128D027226CFACF00E2D4A9 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128D026226CFACF00E2D4A9 /* MenuViewController.swift */; };
 		A136AF5A22720855002C351F /* addFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A136AF5922720855002C351F /* addFriendsViewController.swift */; };
 		A136AF5C2272147F002C351F /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A136AF5B2272147F002C351F /* Chat.storyboard */; };
@@ -40,6 +41,7 @@
 		564D978F2269E37400C1A8DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7D8E9E3EEC711833B7C07E1A /* Pods-TextMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TextMe.debug.xcconfig"; path = "Target Support Files/Pods-TextMe/Pods-TextMe.debug.xcconfig"; sourceTree = "<group>"; };
 		9EAD27C673ABBFC3A39D17E1 /* Pods_TextMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TextMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A120664B22737B8600B4DB37 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		A128D026226CFACF00E2D4A9 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		A136AF5922720855002C351F /* addFriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addFriendsViewController.swift; sourceTree = "<group>"; };
 		A136AF5B2272147F002C351F /* Chat.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 		564D97792269E37200C1A8DA = {
 			isa = PBXGroup;
 			children = (
+				A120664A22737B7800B4DB37 /* Values */,
 				A1D0016C226A88260099740A /* Info.plist */,
 				564D97842269E37200C1A8DA /* TextMe */,
 				A1D00172226B1C820099740A /* GoogleService-Info.plist */,
@@ -139,6 +142,14 @@
 				4A323C42DB04970154851D59 /* Pods-TextMe.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		A120664A22737B7800B4DB37 /* Values */ = {
+			isa = PBXGroup;
+			children = (
+				A120664B22737B8600B4DB37 /* Colors.swift */,
+			);
+			path = Values;
 			sourceTree = "<group>";
 		};
 		A139646D226E2013003E1B4C /* Cells */ = {
@@ -318,6 +329,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1CE1FD3226B375800226A24 /* RegisterViewController.swift in Sources */,
+				A120664C22737B8600B4DB37 /* Colors.swift in Sources */,
 				A139646C226E14C9003E1B4C /* settingsHelper.swift in Sources */,
 				A1D00167226A859E0099740A /* AppDelegate.swift in Sources */,
 				561EE7B4226B49F3008023C8 /* MessageCell.swift in Sources */,
