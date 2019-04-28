@@ -28,7 +28,7 @@ UITableViewDataSource, UISearchBarDelegate{
         // Init Search
         self.searchBar.delegate = self
         self.searchBar.isHidden = true
-        self.searchBar.barTintColor = UIColor.primaryDarkColor
+        self.searchBar.barTintColor = .primaryDark
         self.searchBar.barStyle = .blackOpaque
         
         // Registring Contacts and Bring Users from DB
@@ -115,7 +115,7 @@ UITableViewDataSource, UISearchBarDelegate{
             // Appending Add Btn for Cell
             cellButton = UIButton(frame: CGRect(x: frame.width, y: frame.height / 2, width: 64, height: 64))
             cellButton.setImage(UIImage(named: "icons8-plus_math_filled"), for: .normal)
-            cellButton.tintColor = UIColor.primaryDarkColor
+            cellButton.tintColor = .primaryDark
             
         
             addSubview(cellButton)

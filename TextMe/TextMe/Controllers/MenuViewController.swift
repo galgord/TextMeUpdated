@@ -77,7 +77,7 @@ class MenuViewController: UIViewController, UITableViewDelegate , UITableViewDat
         self.nicknameLabel.text = nickname
         
         self.searchBar.isHidden = true
-        self.searchBar.barTintColor = UIColor.primaryDarkColor
+        self.searchBar.barTintColor = .primaryDark
         self.searchBar.barStyle = .blackOpaque
         
         menuBtn.setImage(UIImage(named: "icons8-menu_2"), for: .normal)
@@ -93,6 +93,10 @@ class MenuViewController: UIViewController, UITableViewDelegate , UITableViewDat
             let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let vc : UIViewController =  storyboard.instantiateViewController(withIdentifier: "Login")
             self.show(vc, sender: self)
+        } else if(settingName == "Profile"){
+            let vc : UIViewController =
+                self.storyboard!.instantiateViewController(withIdentifier: "Profile")
+            self.present(vc, animated: true, completion: nil)
         }
     }
     
@@ -155,7 +159,7 @@ class MenuViewController: UIViewController, UITableViewDelegate , UITableViewDat
                 
                 let cell = ContactTableView.dequeueReusableCell(withIdentifier: "addCell", for: indexPath)
                 cell.textLabel?.text = "Add Friends"
-                cell.textLabel?.textColor = UIColor.primaryDarkColor
+                cell.textLabel?.textColor = .primaryDark
                 return cell
             }
         }else{ // Search null
@@ -170,7 +174,7 @@ class MenuViewController: UIViewController, UITableViewDelegate , UITableViewDat
                 let cell = ContactTableView.dequeueReusableCell(withIdentifier: "addCell", for: indexPath)
                 cell.textLabel?.text = "Add Friends"
                 cell.textLabel?.baselineAdjustment = .alignCenters
-                cell.textLabel?.textColor = UIColor.primaryDarkColor
+                cell.textLabel?.textColor = .primaryDark
                 return cell
             }
             

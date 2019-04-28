@@ -137,6 +137,21 @@
             </objects>
             <point key="canvasLocation" x="-1500.0000000000002" y="-625.44642857142856"/>
         </scene>
+        <!--Profile View Controller-->
+        <scene sceneID="TVC-Tw-3Mh">
+            <objects>
+                <viewController id="qFX-Wq-hYI" customClass="ProfileViewController" customModule="TextMe" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mC1-wJ-Uqn">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="xtA-9F-EW1"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ILO-ZI-Yey" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-697" y="-625"/>
+        </scene>
         <!--menu-->
         <scene sceneID="kYW-QD-kZo">
             <objects>

@@ -14,7 +14,8 @@
 		561EE7B8226B5548008023C8 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561EE7B7226B5548008023C8 /* Message.swift */; };
 		564D978B2269E37200C1A8DA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 564D97892269E37200C1A8DA /* Main.storyboard */; };
 		564D97902269E37400C1A8DA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 564D978E2269E37400C1A8DA /* LaunchScreen.storyboard */; };
-		A120664C22737B8600B4DB37 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A120664B22737B8600B4DB37 /* Colors.swift */; };
+		56AC42FA22761CD900C0BC2D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56AC42F922761CD900C0BC2D /* ProfileViewController.swift */; };
+		56AC42FD22761E4800C0BC2D /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56AC42FC22761E4800C0BC2D /* File.swift */; };
 		A128D027226CFACF00E2D4A9 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128D026226CFACF00E2D4A9 /* MenuViewController.swift */; };
 		A136AF5A22720855002C351F /* addFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A136AF5922720855002C351F /* addFriendsViewController.swift */; };
 		A136AF5C2272147F002C351F /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A136AF5B2272147F002C351F /* Chat.storyboard */; };
@@ -39,9 +40,10 @@
 		564D97822269E37200C1A8DA /* TextMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TextMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		564D978A2269E37200C1A8DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		564D978F2269E37400C1A8DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		56AC42F922761CD900C0BC2D /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		56AC42FC22761E4800C0BC2D /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		7D8E9E3EEC711833B7C07E1A /* Pods-TextMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TextMe.debug.xcconfig"; path = "Target Support Files/Pods-TextMe/Pods-TextMe.debug.xcconfig"; sourceTree = "<group>"; };
 		9EAD27C673ABBFC3A39D17E1 /* Pods_TextMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TextMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A120664B22737B8600B4DB37 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		A128D026226CFACF00E2D4A9 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		A136AF5922720855002C351F /* addFriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addFriendsViewController.swift; sourceTree = "<group>"; };
 		A136AF5B2272147F002C351F /* Chat.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
@@ -100,7 +102,6 @@
 		564D97792269E37200C1A8DA = {
 			isa = PBXGroup;
 			children = (
-				A120664A22737B7800B4DB37 /* Values */,
 				A1D0016C226A88260099740A /* Info.plist */,
 				564D97842269E37200C1A8DA /* TextMe */,
 				A1D00172226B1C820099740A /* GoogleService-Info.plist */,
@@ -121,6 +122,7 @@
 		564D97842269E37200C1A8DA /* TextMe */ = {
 			isa = PBXGroup;
 			children = (
+				56AC42FB22761E3B00C0BC2D /* Values */,
 				A1CE1FD5226B759A00226A24 /* Models */,
 				561EE7AC226B46DF008023C8 /* Chat */,
 				A1D00178226B20940099740A /* TextMe.entitlements */,
@@ -135,6 +137,14 @@
 			path = TextMe;
 			sourceTree = "<group>";
 		};
+		56AC42FB22761E3B00C0BC2D /* Values */ = {
+			isa = PBXGroup;
+			children = (
+				56AC42FC22761E4800C0BC2D /* File.swift */,
+			);
+			path = Values;
+			sourceTree = "<group>";
+		};
 		964F35F7C8D412CDE0495A1A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -142,14 +152,6 @@
 				4A323C42DB04970154851D59 /* Pods-TextMe.release.xcconfig */,
 			);
 			path = Pods;
-			sourceTree = "<group>";
-		};
-		A120664A22737B7800B4DB37 /* Values */ = {
-			isa = PBXGroup;
-			children = (
-				A120664B22737B8600B4DB37 /* Colors.swift */,
-			);
-			path = Values;
 			sourceTree = "<group>";
 		};
 		A139646D226E2013003E1B4C /* Cells */ = {
@@ -164,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				A1CE1FD2226B375800226A24 /* RegisterViewController.swift */,
+				56AC42F922761CD900C0BC2D /* ProfileViewController.swift */,
 				A1D0016A226A85CA0099740A /* ViewController 01-37-28-491.swift */,
 				A128D026226CFACF00E2D4A9 /* MenuViewController.swift */,
 				A136AF5922720855002C351F /* addFriendsViewController.swift */,
@@ -329,15 +332,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1CE1FD3226B375800226A24 /* RegisterViewController.swift in Sources */,
-				A120664C22737B8600B4DB37 /* Colors.swift in Sources */,
 				A139646C226E14C9003E1B4C /* settingsHelper.swift in Sources */,
 				A1D00167226A859E0099740A /* AppDelegate.swift in Sources */,
 				561EE7B4226B49F3008023C8 /* MessageCell.swift in Sources */,
 				A139646F226E2024003E1B4C /* settingsCell.swift in Sources */,
 				A136AF5A22720855002C351F /* addFriendsViewController.swift in Sources */,
+				56AC42FA22761CD900C0BC2D /* ProfileViewController.swift in Sources */,
 				561EE7B8226B5548008023C8 /* Message.swift in Sources */,
 				561EE7B0226B471A008023C8 /* ChatViewController.swift in Sources */,
 				A1D0016B226A85CA0099740A /* ViewController 01-37-28-491.swift in Sources */,
+				56AC42FD22761E4800C0BC2D /* File.swift in Sources */,
 				A1CE1FD7226B75A600226A24 /* User.swift in Sources */,
 				A128D027226CFACF00E2D4A9 /* MenuViewController.swift in Sources */,
 			);

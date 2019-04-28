@@ -25,7 +25,7 @@ class SettingsCell: UICollectionViewCell {
     
     override var isHighlighted: Bool {
         didSet {
-            backgroundColor = isHighlighted ? UIColor.primaryDarkColor : UIColor.white
+            backgroundColor = isHighlighted ? .primaryDark : UIColor.white
             
             nameLabel.textColor = isHighlighted ? UIColor.white : UIColor.black
             
