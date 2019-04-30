@@ -108,25 +108,29 @@ class MenuViewController: UIViewController, UITableViewDelegate , UITableViewDat
         // Getting Self id
         let userId = Auth.auth().currentUser?.uid
         // Friends Ref
-        let dbRef = Database.database().reference().child("Users").child(userId!).child("Friends").observe(.childAdded){ (snap) in
+        let dbRef = Database.database().reference().child("Friends").child(userId!).observe(.childAdded){ (snap) in
             // Getting friend id from snap
             let snapValue = snap.value as! Dictionary<String,Any>
             let id =  snapValue["uid"] as! String
-            // Users Ref Filterd By the ID of Friend
-            let ref = Database.database().reference().child("Users").child(id).observe(.value, with: { (UsersSnap) in
-                if let userDict = UsersSnap.value as? [String:AnyObject]{
-                    //Making User from Snap
-                    var user = User()
-                    user.displayName = userDict["displayName"] as! String
-                    user.Email = userDict["email"] as! String
-                    user.id = userDict["id"] as! String
+            let isFriend = snapValue["isFriend"] as! Bool
+            
+            if(isFriend == true){
+                // Users Ref Filterd By the ID of Friend
+                let ref = Database.database().reference().child("Users").child(id).observe(.value, with: { (UsersSnap) in
+                    if let userDict = UsersSnap.value as? [String:AnyObject]{
+                        //Making User from Snap
+                        var user = User()
+                        user.displayName = userDict["displayName"] as! String
+                        user.Email = userDict["email"] as! String
+                        user.id = userDict["id"] as! String
+                        
+                        // Updating Array and Table
+                        self.usersArray.append(user)
+                        self.ContactTableView.reloadData()
+                    }
                     
-                    // Updating Array and Table
-                    self.usersArray.append(user)
-                    self.ContactTableView.reloadData()
-                }
-                
-            })
+                })
+            }
         }
     }
     

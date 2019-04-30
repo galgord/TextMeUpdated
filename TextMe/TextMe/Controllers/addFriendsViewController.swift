@@ -230,10 +230,12 @@ extension addFriendsViewController : cellAddDelegate {
     
     func addClicked(user: User) {
         let userId = Auth.auth().currentUser?.uid
-        let dbRef = Database.database().reference().child("Users").child(userId!)
+        let dbRef = Database.database().reference()
         
-        let userDict = ["uid": user.id]
-        dbRef.child("Friends").childByAutoId().setValue(userDict) { (error, dbRef) in
+        let userDict : Dictionary<String,Any> = ["uid": user.id,
+                        "isFriend" : true,
+                        "isBlocked": false]
+        dbRef.child("Friends").child(userId!).child(user.id).setValue(userDict) { (error, dbRef) in
             if(error != nil){
                 print(error)
             }
