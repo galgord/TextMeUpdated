@@ -149,8 +149,8 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         //MARK - Saving to the Database
         let key = Database.database().reference().child("Chats").child(chatId).childByAutoId().key
         let messageDB = Database.database().reference().child("Chats").child(chatId).child(key!)
-        let messageDict = ["Sender" : Auth.auth().currentUser?.email,
-                           "MessageBody" : messageText.text!,
+        let messageDict = ["sender" : Auth.auth().currentUser?.email,
+                           "messageBody" : messageText.text!,
                            "mId" : key]
         messageDB.setValue(messageDict) {
             (error,referance) in
@@ -178,8 +178,8 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let messageDB = Database.database().reference().child("Chats").child(chatId)
         messageDB.observe(.childAdded, with: { (snap) in
             let snapValue = snap.value as! Dictionary<String,String>
-            let text = snapValue["MessageBody"]!
-            let sender = snapValue["Sender"]!
+            let text = snapValue["messageBody"]!
+            let sender = snapValue["sender"]!
             let id = snapValue["mId"]!
             
             

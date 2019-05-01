@@ -217,12 +217,17 @@ extension addFriendsViewController : cellAddDelegate {
     func fetchUser(){
         Database.database().reference().child("Users").observe(.childAdded) { (DataSnapshot) in
             if let dict = DataSnapshot.value as? [String:AnyObject]{
+                // Getting Id of users
+                var id = dict["id"] as! String
+                if(id != Auth.auth().currentUser?.uid){
+                
                 var user = User()
                 user.displayName = dict["displayName"] as! String
                 user.Email = dict["email"] as! String
-                user.id = dict["id"] as! String
+                user.id = id
                 self.usersArray.append(user)
                 self.contactsTableView.reloadData()
+                }
             }
             
         }
@@ -235,10 +240,22 @@ extension addFriendsViewController : cellAddDelegate {
         let userDict : Dictionary<String,Any> = ["uid": user.id,
                         "isFriend" : true,
                         "isBlocked": false]
+        
+        let myUserDict : Dictionary<String,Any> = ["uid": userId,
+                                                 "isFriend" : true,
+                                                 "isBlocked": false]
         dbRef.child("Friends").child(userId!).child(user.id).setValue(userDict) { (error, dbRef) in
             if(error != nil){
-                print(error)
+                print(error as Any)
             }
         }
+        
+        dbRef.child("Friends").child(user.id).child(userId!).setValue(myUserDict){
+            (error, dbRef) in
+            if(error != nil){
+                print(error as Any)
+            }
+        }
+        
     }
 }

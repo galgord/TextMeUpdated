@@ -114,7 +114,7 @@ class MenuViewController: UIViewController, UITableViewDelegate , UITableViewDat
             let id =  snapValue["uid"] as! String
             let isFriend = snapValue["isFriend"] as! Bool
             
-            if(isFriend == true){
+            if(isFriend == true && id != Auth.auth().currentUser?.uid){
                 // Users Ref Filterd By the ID of Friend
                 let ref = Database.database().reference().child("Users").child(id).observe(.value, with: { (UsersSnap) in
                     if let userDict = UsersSnap.value as? [String:AnyObject]{
